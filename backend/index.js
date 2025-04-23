@@ -7,7 +7,7 @@ connectToDB ()
 
 app.use(cors())
 app.use(express.json())
-app.use("/api/auth", authRouter)
+app.use('/api/auth', authRouter)
 
 app.listen(process.env.PORT, ()=>{
     console.log(`server is running on PORT ${process.env.PORT}`)
