@@ -15,19 +15,25 @@ const handleChange =(e) => {
   setDepartment({...department,[name]:value})
 }
 
+
 const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-        const res = await axios.post('http://localhost:5000/api/department/add',department,{
-            headers: {
-                "Authorization" : `Bearer ${localStorage.getItem('token')}`
-            }
-        })
+
+        
+        const res = await axios.post('http://localhost:5000/api/department/add',department,
+        //     {
+        //     headers: {
+        //         "Authorization" : `Bearer ${localStorage.getItem('token')}`
+        //     } 
+        // }
+    )
         if(res.data.success){
         navigate('/admin-dashboard/departments')
         }
-    } catch (error) {
-        console.log(error)
+    } catch (error) { 
+     if(error.res && !error.res.data.error)
+        alert(error.res)
     }
 
 }
@@ -36,7 +42,7 @@ const handleSubmit = async (e) => {
     < div className='max-w-3xl mx-auto mt-10 bg-white p-8 rounded-md shadow-md w-96'>
       
         <h2  className='text-2xl font-bold mb-6'> Add New Department</h2>
-        <form action=""onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit}>
             <div className="">
                 <label htmlFor="dep_name"
                 className='text-sm font-medium text-gray-700'

@@ -9,6 +9,7 @@ import AdminSummary from './components/dashboard/AdminSummary.jsx'
 
 import DepartmentList from './components/departments/DepartmentList.jsx'
 import AddDepartment from './components/departments/AddDepartment.jsx'
+import EditDepartment from './components/departments/EditDepartment.jsx'
 
 const App = () => {
   return (
@@ -27,6 +28,7 @@ const App = () => {
       <Route index element={<AdminSummary/>} ></Route>
       <Route path="/admin-dashboard/departments"  element={<DepartmentList/>}  ></Route>
       <Route path="/admin-dashboard/add-department"  element={<AddDepartment/>}  ></Route>
+      <Route path="/admin-dashboard/department/:id"  element={<EditDepartment/>}  ></Route>
 
 
 

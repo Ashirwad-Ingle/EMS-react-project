@@ -1,7 +1,15 @@
 import express from 'express'
-import authMiddleware from '../middleware/authMiddleware.js'
-import { addDepartment } from '../controllers/departmentController.js'
+import { addDepartment, getDepartments ,editDepartments,updateDepartments} from '../controllers/departmentController.js'
+
+
 
 const router = express.Router()
 
-router.post('/add',authMiddleware,addDepartment)
+
+router.post('/add',addDepartment)
+router.get('/',getDepartments)
+router.get('/:id',editDepartments)
+router.put('/:id',updateDepartments)
+
+
+export default router;

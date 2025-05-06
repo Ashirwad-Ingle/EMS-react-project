@@ -23,8 +23,10 @@ const navigate = useNavigate()
         password
       });
       if(res.data.success) {
+      
         login(res.data.user)
-        localStorage.setItem("token",res.data.success)
+        
+        localStorage.setItem("token", res.data.success)
 
         if(res.data.user.role ==="admin"){
           navigate('/admin-dashboard')
