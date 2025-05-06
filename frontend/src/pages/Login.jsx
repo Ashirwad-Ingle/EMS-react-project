@@ -1,11 +1,16 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useAuth } from '../context/Context.jsx';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+const {login} = useAuth()
+const navigate = useNavigate()
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -17,7 +22,16 @@ const Login = () => {
         email,
         password
       });
-      console.log(res.data);
+      if(res.data.success) {
+        login(res.data.user)
+        localStorage.setItem("token",res.data.success)
+
+        if(res.data.user.role ==="admin"){
+          navigate('/admin-dashboard')
+        }else{
+          navigate('/employee-dashboard')
+        }
+      }
       setSuccess('Login successful!');
     } catch (err) {
       setError(err.response?.data?.error || 'Login failed. Check server.');
