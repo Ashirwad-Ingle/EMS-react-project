@@ -9,13 +9,3 @@ router.get('/verify',authMiddleware,verify  )
 
 export default router;
 
-// pratice1//
-
-// import express from 'express'
-// import {login} from '../controllers/authController.js'
-
-// const router = express.Router()
-
-// router.post('/login', login)
-
-// export default router;

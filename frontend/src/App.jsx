@@ -1,10 +1,10 @@
 import React from 'react'
 import {BrowserRouter,Routes,Route, Navigate} from "react-router-dom"
-import AdminDashboard from './pages/AdminDashboard'
-import Login from './pages/Login'
-import EmployeeDashboard from './pages/EmployeeDashboard'
-import PrivateRoutes from './utils/PrivateRoutes'
-import RoleBaseRoutes from './utils/RoleBaseRoutes'
+import AdminDashboard from './pages/AdminDashboard.jsx'
+import Login from './pages/Login.jsx'
+import EmployeeDashboard from './pages/EmployeeDashboard.jsx'
+import PrivateRoutes from './utils/PrivateRoutes.jsx'
+import RoleBaseRoutes from './utils/RoleBaseRoutes.jsx'
 import AdminSummary from './components/dashboard/AdminSummary.jsx'
 
 import DepartmentList from './components/departments/DepartmentList.jsx'

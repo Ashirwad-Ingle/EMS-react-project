@@ -26,7 +26,7 @@ const navigate = useNavigate()
       
         login(res.data.user)
         
-        localStorage.setItem("token", res.data.success)
+        localStorage.setItem("token", res.data.token)
 
         if(res.data.user.role ==="admin"){
           navigate('/admin-dashboard')

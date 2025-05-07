@@ -53,4 +53,17 @@ const updateDepartments = async (req,res) => {
         return res.status(500).json({success:false, error: "edit department server error"})
     }
 }
-export {addDepartment, getDepartments ,editDepartments,updateDepartments}
+
+const deleteDepartments = async (req,res)=>{
+    try {
+        const {id} = req.params;
+       
+        const deletedep = await Department.findByIdAndDelete(id)
+        return res.status(200).json({success:true, deletedep})
+        
+    } catch (error) {
+        return res.status(500).json({success:false, error: "edit department server error"})
+    }
+}
+
+export {addDepartment, getDepartments ,editDepartments,updateDepartments , deleteDepartments}
