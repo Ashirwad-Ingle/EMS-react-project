@@ -21,13 +21,13 @@ const handleSubmit = async (e) => {
     try {
 
         
-        const res = await axios.post('http://localhost:5000/api/department/add',department,
+        const res = await axios.post('http://localhost:5000/api/department/add',department,)
         //     {
         //     headers: {
         //         "Authorization" : `Bearer ${localStorage.getItem('token')}`
         //     } 
         // }
-    )
+    
         if(res.data.success){
         navigate('/admin-dashboard/departments')
         }

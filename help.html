@@ -1,0 +1,154 @@
+// ============================
+// server.js
+// ============================
+import express from "express";
+import cors from "cors";
+import path from "path";
+import { fileURLToPath } from 'url';
+import connectToDB from "./database/db.js";
+import authRouter from "./routes/auth.js";
+import departmentRouter from "./routes/department.js";
+import employeeRouter from "./routes/employee.js";
+
+const app = express();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+connectToDB();
+
+app.use(cors());
+app.use(express.json());
+app.use('/uploads', express.static(path.join(__dirname, 'public/uploads')));
+
+app.use('/api/auth', authRouter);
+app.use('/api/department', departmentRouter);
+app.use('/api/employee', employeeRouter);
+
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, () => {
+    console.log(`Server is running on PORT ${PORT}`);
+});
+
+
+// ============================
+// routes/employee.js
+// ============================
+import express from 'express';
+import { addEmployee, upload } from '../controllers/EmployeeController.js';
+import authMiddleware from '../middleware/authMiddleware.js';
+
+const router = express.Router();
+
+router.post('/add', authMiddleware, upload.single('image'), addEmployee);
+
+export default router;
+
+
+// ============================
+// models/Employee.js
+// ============================
+import mongoose, { Schema } from "mongoose";
+
+const employeeSchema = new Schema({
+    userId: { type: Schema.Types.ObjectId, ref: "User", required: true },
+    employeeId: { type: String, required: true, unique: true },
+    dob: { type: Date },
+    gender: { type: String },
+    maritalStatus: { type: String },
+    designation: { type: String },
+    department: { type: Schema.Types.ObjectId, ref: "Department", required: true },
+    salary: { type: Number, required: true },
+    createdAt: { type: Date, default: Date.now },
+    updatedAt: { type: Date, default: Date.now },
+});
+
+const Employee = mongoose.model("Employee", employeeSchema);
+
+export default Employee;
+
+
+// ============================
+// controllers/EmployeeController.js
+// ============================
+import User from "../models/User.js";
+import Employee from "../models/Employee.js";
+import bcrypt from 'bcrypt';
+import multer from 'multer';
+import path from 'path';
+import fs from 'fs';
+
+// Ensure upload folder exists
+const uploadDir = 'public/uploads';
+if (!fs.existsSync(uploadDir)) {
+    fs.mkdirSync(uploadDir, { recursive: true });
+}
+
+// Configure multer storage
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, uploadDir);
+    },
+    filename: (req, file, cb) => {
+        const uniqueSuffix = Date.now() + path.extname(file.originalname);
+        cb(null, uniqueSuffix);
+    }
+});
+
+const upload = multer({ storage });
+
+const addEmployee = async (req, res) => {
+    try {
+        const {
+            name,
+            email,
+            employeeId,
+            dob,
+            gender,
+            maritalStatus,
+            designation,
+            department,
+            salary,
+            password,
+            role,
+        } = req.body;
+
+        const existingUser = await User.findOne({ email });
+        if (existingUser) {
+            return res.status(400).json({ success: false, error: "User already registered" });
+        }
+
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        const newUser = new User({
+            name,
+            email,
+            password: hashedPassword,
+            role,
+            profileImage: req.file ? req.file.filename : '',
+        });
+
+        const savedUser = await newUser.save();
+
+        const newEmployee = new Employee({
+            userId: savedUser._id,
+            employeeId,
+            dob,
+            gender,
+            maritalStatus,
+            designation,
+            department,
+            salary,
+        });
+
+        await newEmployee.save();
+
+        return res.status(200).json({ success: true, message: "Employee Created Successfully!" });
+
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ success: false, message: "Server error in creating employee" });
+    }
+};
+
+export { addEmployee, upload };

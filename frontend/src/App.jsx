@@ -6,12 +6,12 @@ import EmployeeDashboard from './pages/EmployeeDashboard.jsx'
 import PrivateRoutes from './utils/PrivateRoutes.jsx'
 import RoleBaseRoutes from './utils/RoleBaseRoutes.jsx'
 import AdminSummary from './components/dashboard/AdminSummary.jsx'
-
 import DepartmentList from './components/departments/DepartmentList.jsx'
 import AddDepartment from './components/departments/AddDepartment.jsx'
 import EditDepartment from './components/departments/EditDepartment.jsx'
-import EmployeeList from './components/employee/EmployeeList.jsx'
-import AddEmployee from './components/employee/AddEmployee.jsx'
+import List from './components/employee/List.jsx'
+import Add from './components/employee/Add.jsx'
+
 
 const App = () => {
   return (
@@ -35,8 +35,9 @@ const App = () => {
           <Route path="/admin-dashboard/department/:id" element={<EditDepartment />}  ></Route>
 
           {/*  employee */}
-          <Route path="/admin-dashboard/employee" element={<EmployeeList />}></Route>
-        <Route path='/admin-dashboard/add-employee' element={<AddEmployee/>}></Route>
+          <Route path="/admin-dashboard/employees" element={<List />}></Route>
+          <Route path="/admin-dashboard/add-employee" element={<Add />}  ></Route>
+
 
 
 
