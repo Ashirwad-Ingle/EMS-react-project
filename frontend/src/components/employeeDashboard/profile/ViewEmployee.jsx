@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 const ViewEmployee = () => {
     const { id } = useParams();
  
-    console.log(id)
+   
     const [employee, setEmployee] = useState(null); // fix: use null, not [null]
     const [loading, setLoading] = useState(true);   // fix: explicit loading state
 
