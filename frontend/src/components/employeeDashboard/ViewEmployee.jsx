@@ -2,8 +2,9 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-const View = () => {
+const ViewEmployee = () => {
     const { id } = useParams();
+ 
     console.log(id)
     const [employee, setEmployee] = useState(null); // fix: use null, not [null]
     const [loading, setLoading] = useState(true);   // fix: explicit loading state
@@ -18,7 +19,7 @@ const View = () => {
                 });
                 if (res.data.success) {
              
-                    setEmployee(res.data.employees);
+                    setEmployee(res.data.employee);
                 }
             } catch (error) {
                 if (error.response && !error.response.data.success) {
@@ -65,4 +66,5 @@ const View = () => {
     );
 };
 
-export default View;
+
+export default ViewEmployee

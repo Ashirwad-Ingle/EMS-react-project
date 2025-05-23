@@ -13,6 +13,10 @@ import List from './components/employee/List.jsx'
 import Add from './components/employee/Add.jsx'
 import View from './components/employee/View.jsx'
 import Edit from './components/employee/Edit.jsx'
+import AddSalary from './components/salary/AddSalary.jsx'
+import ViewSalary from './components/salary/ViewSalary.jsx'
+import  Summary from './components/employeeDashboard/Summary.jsx'
+import  ViewEmployee from './components/employeeDashboard/ViewEmployee.jsx'
 
 
 const App = () => {
@@ -41,12 +45,26 @@ const App = () => {
           <Route path="/admin-dashboard/add-employee" element={<Add />}  ></Route>
           <Route path="/admin-dashboard/employee/:id" element={<View />}  ></Route>
           <Route path="/admin-dashboard/employee/edit/:id" element={<Edit/>}  ></Route>
+          <Route path="/admin-dashboard/employee/salary/:id" element={<ViewSalary/>}  ></Route>
 
+          {/*  salary */}
+          <Route path="/admin-dashboard/salary" element={<AddSalary/>}  ></Route>
+          </Route>  
 
+         
+        <Route path='/employee-dashboard' element={
+          <PrivateRoutes>
+           <RoleBaseRoutes requiredRole={["admin","employee"]}>
+           <EmployeeDashboard />
+         </RoleBaseRoutes>
+         </PrivateRoutes> 
+          
+        }>
+          <Route index element={<Summary />} ></Route>
 
+            <Route path="/employee-dashboard/p/:id" element={<ViewEmployee />}  ></Route>
 
-        </Route>
-        <Route path='/employee-dashboard' element={<EmployeeDashboard />}></Route>
+          </Route>
 
       </Routes>
 

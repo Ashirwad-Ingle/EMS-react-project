@@ -21,7 +21,24 @@ import { useNavigate } from "react-router-dom"
     }
     return departments
 }
-
+export const fetchEmployee = async (id) => {
+    let employees = [];
+    try {
+        const res = await axios.get(`http://localhost:5000/api/emp/department/${id}`, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
+        });
+        if (res.data.success) {
+            employees = res.data.employees;
+        }
+    } catch (error) {
+        if (error.response && !error.response.data.success) {
+            alert(error.response.data.error);
+        }
+    }
+    return employees;
+};
 
 
 
@@ -77,7 +94,9 @@ export const EmployeeButtons = ({ _id }) => {
             <button className="px-3 py-1 bg-yellow-600 text-white rounded"
              onClick={() => navigate(`/admin-dashboard/employee/edit/${_id}`)}
             >Edit</button>
-            <button className="px-3 py-1 bg-blue-600 text-white rounded">Salary</button>
+            <button className="px-3 py-1 bg-blue-600 text-white rounded"
+             onClick={ () => navigate (`/admin-dashboard/employee/salary/${_id}`)}
+            >Salary</button>
             <button className="px-3 py-1 bg-green-600 text-white rounded">Leave</button>
         </div>
     );
