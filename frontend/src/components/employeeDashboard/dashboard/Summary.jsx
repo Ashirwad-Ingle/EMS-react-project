@@ -4,7 +4,7 @@ import { useAuth } from '../../../context/Context'
 
 const Summary = () => {
     const { user } = useAuth()
-    console.log(user.profileImage)
+  
     return (
         <div className='rounded flex bg-white m-5'>
             <div className={`text-3xl flex justify-center items-center bg-blue-600 text-white px-4`}>

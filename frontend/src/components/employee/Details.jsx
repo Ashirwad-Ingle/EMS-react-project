@@ -2,23 +2,23 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-const View = () => {
+const Details = () => {
     const { id } = useParams();
  
-    const [employee, setEmployee] = useState(null);
+    const [leave, setLeave] = useState(null);
     const [loading, setLoading] = useState(true);   
 
     useEffect(() => {
         const fetchEmployee = async () => {
             try {
-                const res = await axios.get(`http://localhost:5000/api/emp/${id}`, {
+                const res = await axios.get(`http://localhost:5000/api/leave/${id}`, {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem("token")}`
                     }
                 });
                 if (res.data.success) {
              
-                    setEmployee(res.data.employee);
+                    setEmployee(res.data.employees);
                 }
             } catch (error) {
                 if (error.response && !error.response.data.success) {
@@ -65,4 +65,4 @@ const View = () => {
     );
 };
 
-export default View;
+export default Details;

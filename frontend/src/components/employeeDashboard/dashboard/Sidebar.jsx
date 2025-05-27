@@ -32,14 +32,14 @@ const Sidebar = () => {
           <span> Leaves</span>
         </NavLink>
 
-        <NavLink to="/admin-dashboard/salary"
+        <NavLink to={`/employee-dashboard/salary/${user._id}`}
           className={({ isActive }) => `${isActive ? "bg-blue-600" : " "} flex items-center space-x-4  py-2.5 px-4 rounded`}>
           <FaCalendarAlt />
           <span> Salary</span>
         </NavLink>
 
 
-        <NavLink to="/admin-dashboard/setting"
+        <NavLink to={`/employee-dashboard/setting/${user._id}`}
           className={({ isActive }) => `${isActive ? "bg-blue-600" : " "} flex items-center space-x-4  py-2.5 px-4 rounded`}>
           <FaUsers />
           <span> Settings</span>

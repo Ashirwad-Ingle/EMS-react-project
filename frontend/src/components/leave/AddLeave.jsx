@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { useAuth } from '../../../context/Context';
+
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../context/Context';
 
 const AddLeave = () => {
   const { user } = useAuth();
@@ -33,8 +34,8 @@ const AddLeave = () => {
       });
 
       if (res.data.success) {
-        console.log(res.data.leave);
-        navigate('/employee-dashboard/leave');
+    
+        navigate('/employee-dashboard');
       }
     } catch (error) {
       console.error('Leave submission error:', error.response?.data || error.message);

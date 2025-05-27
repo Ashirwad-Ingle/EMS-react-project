@@ -24,7 +24,7 @@ const EditDepartment = () => {
                 const res = await axios.get(`http://localhost:5000/api/department/${id}`)
        
                 if(res.data.success){
-                    console.log(res.data.user)
+                
                 setDepartment(res.data.department)
                 }
             } catch (error) {

@@ -33,13 +33,7 @@ const ViewSalary = () => {
         fetchSalary();
     }, []);
 
-    const filterSalary = (e) => {
-        const search = e.target.value.toLowerCase();
-        const filtered = salary.filter((s) =>
-            s.employeeId.toLowerCase().includes(search)
-        );
-        setFilteredSalary(filtered);
-    };
+   
 
     return (
         <>
@@ -51,14 +45,6 @@ const ViewSalary = () => {
                         <h2 className="text-2xl font-bold">Salary History</h2>
                     </div>
 
-                    <div className="flex justify-end mb-4">
-                        <input
-                            type="text"
-                            placeholder="Search by Employee ID"
-                            className="border px-2 py-1 rounded-md border-gray-300"
-                            onChange={filterSalary}
-                        />
-                    </div>
 
                     <table className="min-w-full bg-white border">
                         <thead>

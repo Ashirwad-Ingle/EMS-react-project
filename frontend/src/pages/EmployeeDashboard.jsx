@@ -1,5 +1,5 @@
 import React from 'react'
-// import { useAuth } from '../context/Context'
+ import { useAuth } from '../context/Context'
 import { Outlet, useNavigate } from 'react-router-dom'
 
 import Navbar from '../components/dashboard/Navbar'
@@ -10,11 +10,11 @@ import Sidebar from '../components/employeeDashboard/dashboard/Sidebar'
 
 const EmployeeDashboard = () => {
 
-  // const{user}  = useAuth()
-  // const navigate = useNavigate()
-  // if(!user){
-  //   navigate('/login')
-  // }
+  const{user}  = useAuth()
+  const navigate = useNavigate()
+  if(!user){
+    navigate('/login')
+  }
 
 
   return (
